@@ -1,0 +1,16 @@
+# File: hw1_part5.py
+# Author: Dane Magbuhos
+# Date: September 10th, 2017
+# Section: 20
+# E-mail: mag4@umbc.edu
+# Description: This program asks the user for information 
+#              about a restaurant and outputs a summary of 
+#              that information.
+
+#Grabs input from user.
+nameInfo = input("What`s the restaurant`s name? ")
+foodInfo = input("What food does the restaurant serve? ")
+ratingInfo = input("What`s the restaurant`s star rating? ")
+
+#Outputs summary of restaurant information.
+print(nameInfo," is a ",ratingInfo," star restaurant. The food they serve is",foodInfo)

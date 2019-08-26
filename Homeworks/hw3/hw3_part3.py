@@ -1,0 +1,49 @@
+# File: hw3_part3.py
+# Author: Dane Magbuhos
+# Date: 09/24/17
+# Section: 20
+# E-mail: mag4@umbc.edu
+# Description: This program allows the user to input enter a time
+#              by putting in the hours, minutes, and time period
+#              manually.
+
+def main():
+    
+    print("Enter the time: hours, then minutes, then AM/PM")
+    # Grabs hour input from user
+    hourInput = int(input("Enter the hour: "))
+    
+    # Loops through until hour input is equal or in between 1 and 12
+    while hourInput < 1 or hourInput > 12:
+          if hourInput < 1:
+             print("Hour input is too low")
+             hourInput = int(input("Enter the hour: "))
+          elif hourInput > 12:
+               print("Hour input is too high")
+               hourInput = int(input("Enter the hour: "))
+
+    # Grabs minute input from user
+    minuteInput = int(input("Enter the minute: "))
+
+    # Loops through until minuteInput is equal or in between 0 and 59
+    while minuteInput < 0 or minuteInput > 59:
+          if minuteInput < 0:
+             print("Minute input is too low")
+             minuteInput = int(input("Enter the minute: "))
+          elif minuteInput > 59:
+              print("Minute input is too high")
+              minuteInput = int(input("Enter the minute: "))
+
+    # Grabs time period input from user
+    timePeriodInput = input("Enter time period: ")
+
+    # Loops through until user inputs valid time period 
+    while timePeriodInput != "AM" and  timePeriodInput != "PM":
+          print("Time period must be 'AM' or 'PM'")
+          timePeriodInput = input("Enter time period: ")
+    
+    # Outputs hour input, minute input, and time period input
+    print("It is",hourInput,":",minuteInput,timePeriodInput)
+      
+
+main()

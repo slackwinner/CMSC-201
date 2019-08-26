@@ -1,0 +1,90 @@
+# File: hw4_part5.py
+# Author: Dane Magbuhos
+# Date: 10/1/17
+# Section: 20
+# E-mail: mag4@umbc.edu
+# Description: This program asks the user to enter a PIN number
+#              validates the PIN input before approving it as 
+#              secure and repeating final selection to user
+
+MAX_LEN_C_D = 4 # Maximum PIN number length of checking(C), debit(D)
+MAX_LEN_S = 3 # Maximum PIN number length of savings(S)
+ZERO_CHECKER = "0" # Indicates that "0" is present
+FIRST_INDEX = 0 # Indicates first character of PIN input
+SUBTRACT_INDEX = 1 # Used to format index length
+ADD_INDEX = 1 # Used to format index length
+PIN_STATEMENT = "The PIN " # Used for output statements
+
+def main():
+
+    # Sets up boolean flag
+    pinValid = False
+
+    while not pinValid:
+
+        # Grabs pin input and account type from user
+        pinInput = input("Please enter a PIN: ")
+        print("Avaliable Account Types: Checking 'c', Debit 'd', and Savings 's'")
+        accountInput = input("Please choose account type: ")
+
+        # Finds length, first character, and last character of pin input
+        pinLength = len(pinInput)
+        firstCharIndex = pinInput[FIRST_INDEX]
+        lastCharIndex = pinInput[pinLength - SUBTRACT_INDEX]
+
+        tempChar = " "
+        repeatCounter = 1
+        index = 0
+        pinValid = True
+        
+        # This section only executes if account type is "c" or "d"
+        if accountInput == "c" or accountInput == "d":
+            # Only outputs too short response if pin input length is not equal to MAX_LEN_C_D
+            if pinLength < MAX_LEN_C_D or pinLength > MAX_LEN_C_D:
+                print(PIN_STATEMENT,pinInput," does not fit requirement length for a ",accountInput," account")
+                print("Requirement Length: Must be 4 digits long")
+                pinValid = False
+
+            # Only outputs begins with zero response if first character contains a "0"
+            if firstCharIndex == ZERO_CHECKER:
+              print(PIN_STATEMENT,pinInput," begins in a zero")
+              pinValid = False
+            # Only outputs ends with zero statement response if last character contains a "0"
+            elif lastCharIndex == ZERO_CHECKER:
+                print(PIN_STATEMENT,pinInput," ends in a zero")
+                pinValid = False
+
+        #This section only executes of account type is "s"
+        elif accountInput == "s":
+            # Only outputs too short response if pin input length is not equal to MAX_LEN_S
+            if pinLength < MAX_LEN_S or pinLength > MAX_LEN_S:
+                print(PIN_STATEMENT,pinInput,"does not fit requirement length for a ",accountInput," account")
+                print("Requirement Length: Must be 3 digits long")
+                pinValid = False
+                
+            # Only outputs begins with zero response if first character contains "0"
+            if firstCharIndex == ZERO_CHECKER:
+                print(PIN_STATEMENT,pinInput," begins in a zero")
+                pinValid = False
+                
+            # Only outputs ends with zero response if last character contains "0"
+            elif lastCharIndex == ZERO_CHECKER:
+                print(PIN_STATEMENT,pinInput," ends in a zero")
+                pinValid = False
+
+            # Loops through entire pin input and counts for consecutive numbers 
+            while index < pinLength - SUBTRACT_LENGTH:
+                # Only outputs numbers repeated response if repeat counter equals length of pin input
+                if repeatCounter == pinLength - SUBTRACT_INDEX:
+                  print(PIN_STATEMENT, pinInput," has ", repeatCounter + ADD_INDEX," numbers repeated")
+                  repeatCounter = 1
+                  pinValid = False
+            
+                tempChar = pinInput[index]
+                index += 1
+                # Only increments counter if previous character is equal to the next character
+                if tempChar == pinInput[index]:
+                   repeatCounter += 1
+        
+    print("Thank you for picking the PIN ",pinInput," for your account", end="\n\n")
+main()

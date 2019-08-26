@@ -1,0 +1,21 @@
+# File: hw1_part1.py
+# Author: Dane Magbuhos
+# Date: September 10th, 2017
+# Section: 20
+# E-mail: mag4@umbc.edu
+# Description: This program outputs information about
+#              how many animals you (the programmer)
+#              might have as pets.   
+
+#Number of owned pets declared and calculates total amount of pets.
+numDogs = 1
+numCats = 0
+numFishes = 2
+totalAmountOfPets = numDogs + numCats + numFishes
+
+#Outputs amount of specific pets and total amount of pets.
+print("I have ",numDogs," dogs as pets")
+print("I have ",numCats," cats as pets")
+print("I have ", numFishes," fish as pets") 
+print(" ")
+print("Total Amount of Pets: ",totalAmountOfPets)

@@ -1,0 +1,51 @@
+# File: hw4_part7.py
+# Author: Dane Magbuhos
+# Date: 10/3/17
+# Section: 20
+# E-mail: mag4@umbc.edu
+# Description: This program allows the user to create a grocery list 
+#              and keeps track of items within grocery list.
+
+STOP = "STOP" #Allows user to stop adding items to list 
+
+def main():
+
+    groceryList = []
+    groceryItem = " "
+    index = 0
+    duplicateItem = False
+        
+    # Allows user to enter items indefinitely until the user types STOP
+    while groceryItem != str(STOP):
+        # Grabs user`s grocery item input
+        groceryItem = input("Please enter a grocery item ('STOP' to exit): ")
+
+        # Prevents the word STOP from being added to grocery list
+        if groceryItem != str(STOP):
+           # Traverses through grocery list and checks for duplicate items
+           while index < len(groceryList):
+               # Only outputs error response and sets boolean flag to true if duplicate item is found
+               if groceryItem == groceryList[index]:    
+                  print("Error: The item ",groceryItem," is already in the list")
+                  duplicateItem = True
+               index += 1
+
+           # Only adds item to the list after iterating through entire list and boolean flag is still false
+           if index == len(groceryList) and duplicateItem == False:
+               groceryList.append(groceryItem)
+
+           # Resets index and boolean flag for next iteration
+           index = 0
+           duplicateItem = False
+
+    # Outputs total amount of items in list
+    print("Total Grocery Items in List:  ", len(groceryList), end="\n\n")
+
+    # Traverses and outputs each individual item
+    while index < len(groceryList):
+          print(groceryList[index])
+          index += 1
+
+    #Outputs blank space for spacing purposes in output
+    print(" ")
+main()

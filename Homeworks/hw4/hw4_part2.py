@@ -1,0 +1,55 @@
+# File: hw4_part2.py
+# Author: Dane Magbuhos
+# Date: 10/1/17
+# Section: 20
+# E-mail: mag4@umbc.edu
+# Description: This program creates a custom symbol box based
+#              on user`s input for the width, height, and
+#              chosen symbols.
+
+TOP_ROW = 1 #Beginning of box row
+FIRST_INDEX = 0 #Beginning of first index
+LAST_INDEX = 1 #Used to calculate the very last index in any given index length
+
+def main():
+
+    # Grabs user`s input prior to execution
+    widthInput = int(input("Please enter the width of the box: "))
+    heightInput = int(input("Please enter the height of the box: "))
+    outsideSymbol = input("Please enter a symbol for the box outline: ")
+    insideSymbol = input("Please enter a symbol for the box fill: ")
+    
+    # Calculates the boundaries for top and inside rows
+    bottomRow = heightInput
+    lastIndex = widthInput - LAST_INDEX
+    widthCounter = 0
+    rowCounter = 1
+
+    # Traverses through each row and outputs specific statements for each row
+    while rowCounter <= heightInput:
+        # Focuses on outputting outside symbol for top and bottom rows
+        if rowCounter == TOP_ROW or rowCounter == bottomRow:
+            if widthCounter < widthInput:
+               print(outsideSymbol, end="")
+               widthCounter += 1
+
+        # Focuses on outputting inside and outside symbol in between top and bottom rows
+        elif rowCounter > TOP_ROW and rowCounter < bottomRow:
+           # Focuses on ouputting outsideSymbol for first index and last index of row
+           if widthCounter == FIRST_INDEX or widthCounter == lastIndex:
+               print(outsideSymbol, end="")
+               widthCounter += 1
+           else:
+               print(insideSymbol, end="")
+               widthCounter += 1
+
+        # Prepares next set of character row
+        if widthCounter == widthInput:
+           rowCounter += 1
+           widthCounter = 0
+           print()
+    
+    # Outputs blank statement for spacing purposes in output
+    print(" ")
+
+main()

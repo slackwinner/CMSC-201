@@ -1,0 +1,59 @@
+# Dane Magbuhos
+
+def questionOne(integer, string):
+    
+    total = integer + int(string)
+    #print("Total: ", total)
+    return total
+
+
+def questionNine(name):
+
+    nameList = name.split()
+    initials = ""
+
+    for i in range(len(nameList)):
+        currName = nameList[i]
+        firstLetter = nameList[i][0]
+
+        tempInitial = firstLetter.upper()
+        initials = initials + tempInitial + "."
+          
+    print(initials)
+
+
+def questionThirteen(maxNum,index,integers):
+
+    if index == len(integers):
+       return maxNum
+
+    else:
+        if maxNum < integers[index]:
+           maxNum = integers[index]
+
+        index += 1
+        return questionThirteen(maxNum, index, integers)
+
+def questionEighteen(num1):
+    print(str(num1)*int(num1))
+
+
+def questionTwentyOne(exponent):
+    
+    if exponent == 0:
+        return 1
+    else:
+        return 2 * questionTwentyOne(exponent - 1)
+
+def main():
+
+     integers = [-1, -4, 2, 56, 66, -65]
+
+#    print("Total: ", questionOne(3, '24'))
+#    questionNine("Rowell D. Magbuhos")
+#    maxNum = questionThirteen(integers[0],1,integers)
+#    print("Max Num: ", maxNum)
+#    print("Power of Two: ", questionTwentyOne(3))
+     questionEighteen(5)
+
+main()

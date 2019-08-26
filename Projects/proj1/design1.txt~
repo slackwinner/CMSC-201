@@ -1,0 +1,183 @@
+# File:    design1.txt
+# Author:  Dane Magbuhos
+# Date:    10/19/17
+# Section: 20
+# E-mail:  mag4@umbc.edu 
+# Description: This program allows a user to "load in" a database
+# 	       of their choosing, and to either (1) search the database
+#	       or (2) create a playlist of length 10 or less, based on 
+#	       year, artist, or genre. 
+
+# main menu options
+USER_QUIT    = -1
+MENU_SEARCH  = 0
+MENU_CREATE  = 1
+
+MIN_SONG_NUM = 0   # minimum number of songs in a playlist
+MAX_SONG_NUM = 10  # maximum number of songs in a playlist
+
+# these constants are used to give names to the columns of the 2D list
+YEAR     = 0
+ARTIST   = 1
+TITLE    = 2
+GENRE    = 3
+DURATION = 4
+TEMPO    = 5
+
+# these constants are used to give names to the 2D playlist
+PLAYLIST_YEAR = 1
+PLAYLIST_ARTIST = 2
+PLAYLIST_GENRE = 3
+
+DETAIL_MIN = YEAR   # minimum value; used for getValidInput()
+DETAIL_MAX = TEMPO  # maximum value
+
+ROW_VALUE = YEAR    # Used to start at first row
+COLUMN_VALUE = YEAR # Used to start at first column
+
+PLAYLIST_MIN = ARTIST # minimum value; used for getValidInput()
+PLAYLIST_MAX = GENRE  # maximum value; used for getValidInput()
+
+############################################################################
+# make2DList() constructs a 2D list from a file that contains information
+#              about songs in a music library, such as year and artist
+# Input:       filename;   a string of the music library's file name
+# Output:      resultList; a 2D list of that file in the format below
+
+#################################################################
+# displayMainMenu() Prints out the main menu of the program
+# Input: None; Takes in nothing (the menu is always the same)
+# Ouput: Returns nothing; since it is a print function
+
+################################################################
+# displayOptions() Prints out a list of six different traits 
+# 		   shown for each song
+# Input: Takes in nothing (the menu is always the same)
+# Output: Returns nothing; since it is a print function
+
+################################################################
+# displayPLOptions() Prints out three different options for 
+# 		     creating a playlist
+# Input: Takes in nothing (the menu is always the same)
+# Output: Returns nothing; since it is a print function
+
+##############################################################
+# printSongs() Prints the details of every song in the 
+# 	       given 2-D list
+# Input: Songs; 2-D list of detailed songs
+# Ouput: Returns nothing, since it is a print function
+
+
+################################################################
+# getValidInput() Gets a valid integer from the user that 
+# 		  falls within specified range; uses a 
+#		  prompt provided at function call
+# Input:	  prompt; a integer to use when asking for input
+# 		  minimum; a minimum integer
+#		  maximum; a maximum integer
+# Output:	  prompt; an integer within the range
+
+
+#####################################################################
+# colToString(column) Converts a number to corresponding
+# 	      	      heading
+# Input: column, an integer that correlates with column heading
+# Output: heading, a string that contains designated column heading
+
+
+#####################################################################
+# songToString(song) Converts song`s information into a string of
+# 		     its details
+# Input: song; a 1-D list that contains detailed parts of specific song
+# Ouput: songInfo; a string that contains all combined detailed
+# 	 	   parts of specific songs
+
+
+#######################################################################
+# search(songs, col, value) Creates 2-D list of all songs that 
+# 		     	    match the value being searched for
+#			    in the selected column
+# Input: songs; a string that contains combined info of a specific song
+# 	 col; a string that contains corresponding column heading
+#	 value; a string that`s being searched for
+# Output: searchResults; a 2-D list of all songs that match value
+# 	  		 in selected column
+
+
+#######################################################################################
+# createPlaylist(songs,choice,length) Creates a 2-D list of all songs
+# 				      within the type selected by the user;
+#				      limits the list to a length of length
+# Input: songs; a string that contains combined information of a specific song
+# 	 choice; an integer(Represents the playlist options of year, artist, or genre)
+# 	 length; an integer(Determines how long the playlist is)
+# Output: playlist; a 2-D list of the first length songs that match the value
+# 	  	    for the selcted choice
+
+def main():
+    # get the filename from the user
+    # call the provided make2DList function to read in songs
+    songs = make2DList
+
+    # create prompt for menu choice
+    # display the main menu options
+    displayMainMenu()
+    # priming read for getting menu choice
+    getValidInput()
+
+    # while menu choice != -1 (for QUIT)
+     
+	# if they want to search
+
+	    # create prompt for column choice
+	    # display the search options
+	    displayOptions()
+
+	    # priming read for getting column choice
+	    getValidInput()
+
+	    # convert choice number to a string
+	    # ask user for value to be searched for based on choice number
+	    colToString()
+
+	    # gathers up all avaliable songs based on value
+	    search()
+
+	    # Outputs appropriate response based on length of 2D list
+	    Output: Your search returned no results if length == 0
+	    Output: printSongs() -> Calls function if length > 0
+
+	    # display main menu options
+	    displayMainMenu()  
+	    
+	    # priming read for getting menu choice
+	    getValidInput()
+	
+	# if they want to create a playlist
+	  
+	  # create prompt for playlist choice
+	  # display the playlist options
+	  displayPLOptions()
+
+	  # priming read for getting playlist type (Categories: Year, Artist, Genre)
+	  getValidInput()
+
+	  # priming read for getting length of playlist (Has to be from 1-10)
+	  getValidInput()
+
+	  # creates the playlist based on user`s preference
+	  createPlaylist()
+
+	  # Outputs appropriate response based on length of 2D list
+	  Output: Problem: The given value was not found (if length == 0)
+	  	  Unable to create a playlist based on that criteria
+	  Output: printSongs() -> Calls function if length > 0
+	  	   
+	  # display main menu options
+	  displayMainMenu()
+
+	  # priming read for getting menu choice
+	  getValidInput()
+
+   # Output Thanks for using Music Orgainzer 3000, come again!	     
+main()

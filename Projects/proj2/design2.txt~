@@ -1,0 +1,117 @@
+# File: design2.txt
+# Author: Dane Magbuhos
+# Date: 10/31/17
+# Section: 20
+# Email: mag4@umbc.edu
+# Description: This program is a simple game called Conway's Game of Life.
+#              In this game, you have a grid where pixelscan either be on 
+#              or off (i.e. dead or alive). During the game, there are 
+#              simple rules that determine which cells live and die.
+
+# CONSTANTS
+
+LOWER_BOUND = 0; # Used to show the value 0 and below are not acceptable inputs
+QUIT = "q" # Used to denote quit option for user
+
+# Used to modify length of lists or boundaries
+SUBTRACT_INDEX = -1
+ADD_INDEX = 1
+INDEX_INCREMENT = 2
+
+# Convey initial even and odd indexes
+EVEN_INDEX = 0
+ODD_INDEX = 1
+
+# Used to convey different types of actions
+CREATING_BOARD = "CB"
+TURNING_ON_CELL = "TOC"
+ITERATION = "I"
+
+# Represents dead and alive cells
+DEAD_CELL = "."
+ALIVE_CELL = "A"
+
+# Convey small and big neighbors
+SMALL_N = 2
+BIG_N = 3
+
+##################################################################
+# printBoard(): Outputs 2D list of the board
+# Input:        board; 2D list that contains dead and alive cells
+# Output:       None; Used only as a print function
+
+
+##########################################################################################
+# inputValidator(): Identifies if user's inputs are valid and within range
+# Input:            userInput; an integer that user provides
+#                   boundary; an integer that determines if user inputs is 
+#                   within range
+#                   action: a string that shows how to treat each boundary appropriately
+# Output:           result; boolean value that determines if user is valid
+
+
+###########################################################################################
+# populateCellBoard(): Creates a new board that has newly acquired alive
+#             	       cells
+# Input: 	       rowInput; an integer that user provided for row input 
+#  		       columnInput; an integer that user provided for column input
+#		       cellList; a 1D list that contains coordinate points for alive cells
+#		       board; a 2D list that contains populated dead and alive cells
+
+################################################################################
+# aliveCellCounter(): Counts amount of alive cells present
+# Input:              aliveCellList; 1D list that has dead/alive cell neighbors
+# Output:             result; a string that's either a dead or alive cell based
+# 		      on the amount of live cells present at the time
+
+
+##################################################################################
+# nextIteration(): Identifies the layout of what next cell board should be
+# Input:           board; A 2D list that contains populated dead and alive cells
+# Output:          newCellList; A 1D list that contains coordinate points of
+#     		   all alive cells
+
+
+####################################################################################
+# makeCellBoard(): Used to call all cell creation related functions and keeps track
+# 		   the amount of iterations for each newly created board
+# Input:	   rowInput; an integer that user provided for row input
+# 		   columnInput; an integer that user provided for column input
+#		   cellList; a 1D list that contains coordiante points for all
+#		   alive cells
+#		   iteration; an integer that user provided for iteration input
+# Output: 	   None; Used only as a cohesive driver
+
+
+################################################################################################
+# cellInitiation(): Gathers up all coordinate points for all cells that the user wants alive
+# Input: 	    rowRange; an integer that conveys the max width of board
+# 		    columnRange; an integer that conveys the max length of board
+# Output:	    cellList; a 1D list that contains the coordainte points for all alive cells
+
+
+def main():
+
+    validInput = False
+
+    while validInput != True:
+    	  # Get row input from user
+	  # call inputValidator(rowInput, LOWER_BOUND, CREATING_BOARD)
+	  
+	  # Get column input from user
+	  # call inputValidator(columnInput, LOWER_BOUND, CREATING_BOARD)
+
+    # call cellInitiation(rowInput, columnInput)
+    
+    while validInput != True:
+    	  
+	  # Get iteration input from user
+	  # call input validator(iterationInput, LOWER_BOUND, ITERATION)
+
+ 
+    makeCellBoard(rowInput, columnInput, aliveCells, iterationInput)
+      
+
+main()
+               
+                                                                                                        ^

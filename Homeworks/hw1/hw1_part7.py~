@@ -1,0 +1,21 @@
+# File: hw1_part7.py
+# Author: Dane Magbuhos
+# Date: September 10th, 2017
+# Section: 20
+# E-mail: mag4@umbc.edu
+# Description: This program asks the user for their ratings
+#              about a restaurant they`ve eaten at, and outputs
+#              a summary of their experience.
+
+#Grabs user`s input.
+restaurantName = input("Name a restaurant you`ve eaten at recently: ")
+foodRating = float(input("How would you rate the food? (1-5) "))
+servRating = float(input("How would you rate the service? (1-5) "))
+atmoRating = float(input("How would you rate the atmosphere? (1-5) "))
+
+#Calculates the average rating based on user`s input.
+overallRating = float(foodRating + servRating + atmoRating)/3
+
+#Outputs overall rating for the user`s specified restaurant.
+print("Your overall experience at ",restaurantName," was ",overallRating," stars") 
+

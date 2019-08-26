@@ -1,0 +1,20 @@
+# File: hw1_part2.py
+# Author: Dane Magbuhos
+# Date: September 10th, 2017
+# Section: 20
+# Email: mag4@umbc.edu
+# Description: This program asks for information about
+#              how much the user`s bill was, how many
+#              people are in the user`s party, and 
+#              calculates and prints out the amount 
+#              each person needs to pay.
+
+#Grabs input from user.
+totalBill = float(input("How much was your total bill? "))
+totalAmountOfPeople = float(input("How many people are in your dining party? "))
+
+#Calculates how much each person needs to pay.
+calculation = totalBill / totalAmountOfPeople
+
+#Outputs results from calculation. 
+print("Each person needs to pay: $",calculation)

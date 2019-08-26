@@ -1,0 +1,101 @@
+# File: hw6_part4.py
+# Author: Dane Magbuhos
+# Date: 11/14/17
+# Section: 20
+# E-mail: mag4@umbc.edu
+# Description: This program evalautes if the user's word
+#              input is a palindrome.
+
+# Used to denote the first index
+FIRST_INDEX = 0
+
+# Used to increment or decrement numbers by given value
+INCREMENT = 1
+DECREMENT = 1
+DECREMENT_INDEX = 2
+
+##############################################################################
+# reverseStr() This function recursively reverses the letter order of the word
+# Input:       charIndex; an integer used to compute last index of the word
+#              finalIndex; an integer used to compute last index of the word
+#              reverseList; a list used to populate reversed letters
+#              wordList; a list that contains letters of the word
+#              wordLength; an integer that indicates amount of letters in word
+
+def reverseStr(charIndex, finalIndex, reverseList, wordList, wordLength):
+
+    # Returns combined reversed word
+    if charIndex == wordLength:
+        joinReverseList = ''.join(reverseList)
+        return joinReverseList
+
+    else:
+        # Adds characters from the last letter through the first letter of the word
+        resultIndex = charIndex + finalIndex
+        reverseList.append(wordList[resultIndex])
+        charIndex += INCREMENT
+        finalIndex -= DECREMENT_INDEX
+        return reverseStr(charIndex , finalIndex , reverseList, wordList, wordLength)
+        
+#######################################################################################
+# character()  This function recursively gathers each letter and stores them in a list
+# Input:       charIndex; an integer used to indicate letter placement
+#              normalList; a list used to store each letter of word
+#              wordLength; an integer that indicates amount of letters in word
+#              word; a string that represents the word being evaluated
+# Output:      normalList; a list that contains stored letters
+
+def character(charIndex, normalList, wordLength, word):
+
+    # Only returns list of characters if charIndex equals to wordLength
+    if charIndex == wordLength:
+        return normalList
+
+    else:
+        # Adds letter to the normal list recursively
+        normalList.append(word[charIndex])
+        charIndex += INCREMENT
+        return character(charIndex, normalList, wordLength, word)
+
+##############################################################################
+# palindrome() This function determines if word is a palindrome 
+# Input:       word; a string that represents the word that's being evaluated
+# Output:      None; Only prints out an appropraite response based on the 
+#              word
+
+def palindrome(word):
+
+    normalList = []
+    wordLength = len(word)
+    charIndex = FIRST_INDEX
+
+    reverseList = []
+    finalIndex = wordLength - DECREMENT
+    
+    # Calls letters function
+    letters = character(charIndex, normalList, wordLength, word)
+
+    # Calls reverseStr function
+    reverseString = reverseStr(charIndex, finalIndex, reverseList, letters, wordLength) 
+
+    # Lower cases both normal and reversed version of word
+    lowerCaseOne = word.lower()
+    lowerCaseTwo = reverseString.lower()
+
+    # Outputs appropriate response based on whether or not the word is a palindrome
+    if lowerCaseOne == lowerCaseTwo:
+        print("The word", word ,"IS a palindrome.","\n\n")
+    
+    elif lowerCaseOne != lowerCaseTwo:
+        print("Sorry, the word", word ,"is NOT a palindrome.")
+        print("Backwards, it becomes", reverseString,"\n\n")
+
+def main():
+
+    wordInput = input("Please enter a word to check for palindrome-ness: ")
+
+    # Calls palindrome function
+    palindrome(wordInput)
+
+
+main()

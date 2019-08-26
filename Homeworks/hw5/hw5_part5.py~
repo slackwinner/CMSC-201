@@ -1,0 +1,79 @@
+# File: hw5_part5.py
+# Author: Dane Magbuhos
+# Date: 10/8/17
+# Section: 20
+# E-mail: mag4@umbc.edu
+# Description: This program asks the user for the number of words they want 
+#              to enter, stores them in a list, and outputs them in the
+#              reverse order.
+
+
+REVERSE_INDEX = 2 # Used to format index of word when reversing character order
+FINAL_INDEX = 0 # Used to dentote final word index in reversed order
+INDEX_FORMAT = 1 # Used to format length of lists and strings
+INCREMENT_COUNTER = 1 # Used to increment any counter by specified number
+
+
+#####################################################
+# backwards() reverses a string and prints the result
+# Input: forString, a string to reverse
+# Output: None
+
+def backwards(forString):
+
+    normalList = []
+    reverseList = []
+    wordLength = len(forString)
+    finalIndex = wordLength - INDEX_FORMAT 
+    charIndex = 0
+    indexCounter = 0
+
+    # Adds each character of word into normal list 
+    while charIndex < len(forString):
+        normalList.append(forString[charIndex])
+        charIndex += INDEX_FORMAT
+
+    # Resets charIndex to 0 prior to next iteration
+    charIndex = 0
+
+    # Traverses through normal list and stores characters from the last 
+    # character through the first character into reverse list
+    while charIndex < len(forString):
+        resultIndex = charIndex + finalIndex
+        reverseList.append(normalList[resultIndex])
+        charIndex += INDEX_FORMAT
+        finalIndex -= REVERSE_INDEX
+    
+    # Combines characters from both list into one word
+    joinNormalList = ''.join(normalList)
+    joinReverseList = ''.join(reverseList)
+    
+    # Outputs the normal and reversed word
+    print("The string " + joinNormalList + " reversed is " + joinReverseList + ".")
+
+
+
+def main():
+
+    # Grabs user`s word input amount
+    wordCounter = int(input("How many words would you like to turn backwards: "))
+    wordList = []
+    counter = 1
+
+    # Prompts user to enter each word and stores each word in word list
+    while counter <= wordCounter:
+          wordInput = input("Enter string #" + str(counter) + ": ")
+          wordList.append(wordInput)
+          counter += INCREMENT_COUNTER
+
+    # Sets current index to be the last index of word list
+    currentIndex = len(wordList) - INDEX_FORMAT
+
+    # Traverses through word list from last index to first index
+    while currentIndex >= FINAL_INDEX:
+          backwards(wordList[currentIndex])
+          currentIndex -= INDEX_FORMAT
+
+    # Prints blank statement spacing purposes in output
+    print(" ")
+main()

@@ -1,0 +1,136 @@
+# File: design3.txt
+# Author: Dane Magbuhos
+# Date: 11/27/17
+# Section: 20
+# E-mail: mag4@umbc.edu
+# Description: This program reads in specified maze chosen by the user
+#              and attempts to find the solution to a specified 
+#              coordinate point.
+
+# Specifies the four walls and open/closed walls for a square
+RIGHT = 0
+BOTTOM = 1
+LEFT = 2
+TOP = 3
+OPEN_W = "0"
+CLOSED_W = "1"
+
+# Used to modify indexes, counters, and boundary ranges
+DECREMENT = 1
+INCREMENT = 1
+INDEX_INCREMENT = 2
+INDEX_DECREMENT = 2
+FIRST_INDEX = 0
+BAD_PATH_ONE = "B"
+BAD_PATH_TWO = "P"
+
+# Items used when validating input
+TYPE_ONE = "row"
+TYPE_TWO = "column"
+LOWER_BOUND = 0
+
+# Used to denote maze package's indexes
+ROW = 0
+COLUMN = 1
+TARGET_ROW = 2
+TARGET_COLUMN = 3
+MAZE_MAP = 4
+
+# Used to denote x and y coordiante indexes
+X_COOR = 0
+Y_COOR = 1
+
+# Used to denote placement of coordinate points and squares
+COORINATE_PLACEMENT = 2
+SQUARE_PLACEMENT = 2
+
+#############################################################################
+# printSolution(): Prints out solution to maze
+# Input:           solution; 1D list that contains coordinate point integers
+# Output:          None, Only serves as a print function
+
+
+##################################################################################
+# pathListChecker(): Verifies if a square has been or has not been visited before
+#                    by comparing the previous squares with the examined square
+# Input:             currentRow; an integer that represents examined row
+#                    currentCol; an integer that represents examined col
+#                    pathList; a 1D list that contains coordinate points of previous 
+#                    squares
+# Output:            result; a boolean value that represents if a square has been or has 
+#                    not been in a particular square
+
+
+#########################################################################################
+# getAlternativePath(): Grabs the next preceding square should getting the first nearest 
+#                       square attempt fail
+# Input:                direction; an integer that represents the position of a square
+#                       square; a 2D list coordinate that contains each square's wall 
+#                       position
+#                       row; an integer that conveys row dimension of maze
+#                       col; an integer that conveys column dimension of maze
+#                       startingRow; an integer that conveys user's picked row
+#                       startingCol; an integer that conveys user's picked column
+#                       tempRow; an integer that serves as a reset row value of the current
+#                       row being examined
+#                       tempCol; an integer that serves as a reset column value of the
+#                       current column being examined 
+#                       pathList; a 1D list that contains coordinate point integers of
+#                       previous squares
+# Output:               pathList; a 1D list that contains recently added coordinate point 
+#                       integers of examined square             
+
+##########################################################################################
+# searchMaze(): Recursively searches through maze to determine the solution path from
+#               starting point to ending point
+# Input:        maze; a 2D list that contains a 1D list of square's wall attributes
+#               row; an integer that conveys max row's dimensions of maze
+#               col; an integer that conveys max column's dimensions of maze
+#               targetRow; an integer that shows row's ending point
+#               targetCol; an integer that shows column's ending point
+#               startingRow; an integer that conveys user's picked row
+#               startingCol; an integer that conveys user's picked column
+#               currentRow; an integer that conveys an examined row value
+#               currentCol; an integer that conveys an examined couln value
+#               pathList; a 1D list that contains all current coordinate points of solution
+# Output:       pathList; a 1d list that contains all coordinate points of solutions
+
+
+######################################################################################
+# inputValidator(): Ensures row and column are within range of maze
+# Input:            higherBound; an integer that represents max boundary of maze
+#                   validType: a string that indicates an appropriate output to
+#                   give to the user
+# Output:           userInput; an integer that represents user's desired choice
+
+
+#######################################################################################
+# readMaze(): Takes in a file name, reads in the contents, and constructs maze
+# Input:      fileName; a string that contains text file's name
+# Output:     mazeContents; a 1D list of the read in items from text file
+
+
+def main()
+
+    # Grab file name from user
+
+    # Call readMaze function; 
+    readMaze()
+
+    # Grab contents from readMaze()
+    # row
+    # column
+    # targetRow
+    # targetCol
+    # maze
+
+    # Call inputValidator function; 
+    inputValidator()
+   
+    # Call searchMaze function; 
+    searchMaze()
+
+    # Call printSolution function;
+    printSolution()
+
+main()

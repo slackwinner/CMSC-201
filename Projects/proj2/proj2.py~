@@ -1,0 +1,446 @@
+# File: proj2.py
+# Author: Dane Magbuhos
+# Date: 11/03/17
+# Section: 20
+# Email: mag4@umbc.edu
+# Description: This program is a simple cellular game called Conway's Game of Life. 
+#              In this game, you have a grid where pixels can either be on or off (dead or alive).
+#              In the game, as time marches on, there are simple rules that govern whether each 
+#              pixel will be on or off (dead or alive) at the next time step.
+
+
+# Used to establish that the value 0 and below are not acceptable inputs 
+LOWER_BOUND = 0
+
+# Used to denote quit option for user
+QUIT = "q" 
+
+# Used tp denote empty string
+NO_CELL = ""
+
+# Used to modify the length of lists, boundaries, or counters
+SUBTRACT_INDEX = -1 
+ADD_INDEX = 1
+INDEX_INCREMENT = 2
+INCREMENT = 1
+
+# Used to denote initial even and odd index values
+EVEN_INDEX = 0
+ODD_INDEX = 1
+
+# Used to denote which action is being executed during input validation
+CREATING_BOARD = "CB"
+TURNING_ON_CELL = "TOC"
+ITERATION = "I"
+
+# Used to denote representations of dead and alive cells
+DEAD_CELL = "."
+ALIVE_CELL = "A"
+
+# Used to denote small and big amount of neighbors
+SMALL_N = 2
+BIG_N = 3
+  
+##################################################################
+# printBoard(): Used to output 2D list of the board
+# Input:        board; 2D list that contains dead and alive cells
+# Output:       None; Used only as a print function
+
+def printBoard(board):
+
+    row = EVEN_INDEX
+    while row < len(board):
+        col = EVEN_INDEX
+        while col < len(board[row]):
+             print(board[row][col], end= "")
+             col += INCREMENT
+        print()
+        row += INCREMENT
+
+###########################################################################################
+# inputValidator(): Used to identify if user's inputs are valid and within specified range 
+# Input:            userInput; an integer that user provides
+#                   boundary; an integer that determines if userInputs are within range
+#                   action; a string that indicates how to treat boundary appropriately
+# Output:           result; boolean value that determines if user input is valid
+
+def inputValidator(userInput, boundary, action):
+
+    result = False
+    
+    # Handles the row and column case 
+    if action == CREATING_BOARD:
+        if userInput <= boundary:
+            print("Invalid value; please enter a number greater than or equal to  1",end= "\n\n")
+        else:
+            # Only returns true if user input is within range of lower bound
+            result = True
+
+    # Handles the cell row and cell column case
+    elif action == TURNING_ON_CELL:
+        if userInput < LOWER_BOUND or userInput >= boundary:
+            print("Invalid value; please enter a number between " + str(LOWER_BOUND) + " and " + str(boundary + SUBTRACT_INDEX) +  " inclusive", end= "\n\n")
+        else:
+            # Only returns true if user input is within range of lower bound and boundary
+            result = True
+    
+    # Handles the amount of iteration(s) case
+    elif action == ITERATION:
+        if userInput < boundary:
+            print("Invalid value; please enter a number greater than or equal 0", end= "\n\n")
+        else:
+            # Only returns true if user input is within range of lower bound
+            result = True
+
+    return result
+
+#####################################################################################################
+# populateCellBoard(): Used to create a new board that consists of newly acquired alive 
+#                      cells based on provided cellList
+# Input:               rowInput; an integer that user provided for row input 
+#                      columnInput; an integer that user provided for column input
+#                      cellList; a 1D list that contains the coordinate points for all alive cells 
+# Output:              board; a 2D list that contains populated dead and alive cells
+
+def populateCellBoard(rowInput, columnInput, cellList):
+    board = []
+    row = []
+    rowIndex = EVEN_INDEX
+    rowCell = EVEN_INDEX
+    columnCell = ODD_INDEX
+
+    # Creates board based on user's row and column input
+    for i in range(columnInput):
+        row.append(DEAD_CELL)
+
+    for i in range (rowInput):
+        board.append(row[:])
+
+    while rowIndex < len(board):
+        colIndex = EVEN_INDEX
+        while colIndex < len(board[rowIndex]):
+            # Traverses through 1D cell list and turns on alive cells at each specificed location
+            while rowCell < len(cellList):
+                if cellList[rowCell] == rowIndex:
+                    board[rowIndex][cellList[columnCell]] = ALIVE_CELL
+
+                # rowcell conveys even indexes of cellList
+                rowCell += INDEX_INCREMENT
+                
+                # columnCell conveys odd indexes of cellList
+                columnCell += INDEX_INCREMENT
+            colIndex += INCREMENT
+        
+            # Resets indexes to default value for next row index iteration
+            rowCell = EVEN_INDEX
+            columnCell = ODD_INDEX
+
+        rowIndex += INCREMENT
+
+    return board
+
+########################################################################################
+# aliveCellCounter(): Counts the amount of alive cell neighbors around 
+#                     examined cell
+# Input:              examinedCell; a string that represents a cell being examined
+#                     aliveCellList; a 1D list that contains all dead and alive cells
+# Output:             result; a string that either is a dead or alive cell based on 
+#                     amount of amount of alive cells present at the time
+
+def aliveCellCounter(examinedCell, aliveCellList):
+    
+    index = EVEN_INDEX
+    count = EVEN_INDEX
+    result = NO_CELL
+
+    while index < len(aliveCellList):
+        # Counts for alive cell duplicates
+        if aliveCellList[index] == ALIVE_CELL:
+            count += INCREMENT
+        index += INCREMENT
+
+    # The count and examined cell determines if the examined cell lives or dies
+    if count < SMALL_N and examinedCell == ALIVE_CELL or count > BIG_N and examinedCell == ALIVE_CELL:
+        result = DEAD_CELL
+
+    elif count == SMALL_N and examinedCell == ALIVE_CELL or count == BIG_N and examinedCell == ALIVE_CELL:
+        result = ALIVE_CELL
+
+    elif count == BIG_N and examinedCell == DEAD_CELL:
+        result = ALIVE_CELL
+
+    return result
+
+##############################################################################
+# nextIteration(): Used to identify the layout of what next cell board should
+#                  look like
+# Input:           board; a 2D list that contains populated dead and alive cells
+# Output:          newCellList; a 1D list that contains coordinate points
+#                  of all alive cells
+         
+def nextIteration(board):
+
+    row = EVEN_INDEX
+    newCellList = []
+    aliveCellList = []
+    boardLength = len(board[row])
+    boardWidth = len(board)
+
+    while row < len(board):
+        col = EVEN_INDEX
+        while col < len(board[row]):
+
+            # Handles the top left corner of board
+             if row == EVEN_INDEX and col == EVEN_INDEX:
+                 
+                 # Grabs cell from the right of examined cell
+                aliveCellList.append(board[row][col + ADD_INDEX])
+                
+                # Grabs two cells below examined cell
+                aliveCellList.append(board[row + ADD_INDEX][col])
+                aliveCellList.append(board[row + ADD_INDEX][col + ADD_INDEX])
+
+             # Handles the top middle section of board
+             elif row == EVEN_INDEX and col >= col + ADD_INDEX or row == EVEN_INDEX and col < boardLength + SUBTRACT_INDEX:
+
+                 # Grabs two cells from the left and right of examined cell
+                  aliveCellList.append(board[row][col + SUBTRACT_INDEX])
+                  aliveCellList.append(board[row][col + ADD_INDEX])
+
+                  # Grabs three bottom cells below examined cell
+                  aliveCellList.append(board[row + ADD_INDEX][col + SUBTRACT_INDEX])
+                  aliveCellList.append(board[row + ADD_INDEX][col])
+                  aliveCellList.append(board[row + ADD_INDEX][col + ADD_INDEX])
+             
+             # Handles the top right corner of board
+             elif row == EVEN_INDEX and col == boardLength + SUBTRACT_INDEX:
+                  
+                  # Grabs cell from the left of examined cell
+                  aliveCellList.append(board[row][col + SUBTRACT_INDEX])
+
+                  # Grabs two cells below examined cell
+                  aliveCellList.append(board[row + ADD_INDEX][col])
+                  aliveCellList.append(board[row + ADD_INDEX][col + SUBTRACT_INDEX])
+                  
+             # Handles left edge section of board
+             elif row > EVEN_INDEX and row < boardWidth + SUBTRACT_INDEX and col == EVEN_INDEX:
+
+                 # Grabs cell from the right of examined cell
+                 aliveCellList.append(board[row][col + ADD_INDEX])
+
+                 # Grabs two cells above examined cell
+                 aliveCellList.append(board[row + SUBTRACT_INDEX][col])
+                 aliveCellList.append(board[row + SUBTRACT_INDEX][col + ADD_INDEX])
+
+                 # Grabs two cells below examined cell
+                 aliveCellList.append(board[row + ADD_INDEX][col])
+                 aliveCellList.append(board[row + ADD_INDEX][col + ADD_INDEX])
+
+             # Handles middle section of board
+             elif row > EVEN_INDEX and row < boardWidth + SUBTRACT_INDEX and col > EVEN_INDEX and col < boardLength + SUBTRACT_INDEX:
+
+                  # Grabs cells from the left and right of examined cell
+                  aliveCellList.append(board[row][col + SUBTRACT_INDEX])
+                  aliveCellList.append(board[row][col + ADD_INDEX])
+  
+                  # Grabs cells from the top of examined cell
+                  aliveCellList.append(board[row + SUBTRACT_INDEX][col + SUBTRACT_INDEX])
+                  aliveCellList.append(board[row + SUBTRACT_INDEX][col])
+                  aliveCellList.append(board[row + SUBTRACT_INDEX][col + ADD_INDEX])
+
+                  # Grabs cells from the bottom of examined cell
+                  aliveCellList.append(board[row + ADD_INDEX][col + SUBTRACT_INDEX])
+                  aliveCellList.append(board[row + ADD_INDEX][col])
+                  aliveCellList.append(board[row + ADD_INDEX][col + ADD_INDEX])
+                 
+             # Handles right edge section of board
+             elif row > EVEN_INDEX and row < boardWidth + SUBTRACT_INDEX and col == boardLength + SUBTRACT_INDEX:
+                
+                  # Grabs cell from the left of examined cell
+                  aliveCellList.append(board[row][col + SUBTRACT_INDEX])
+
+                  # Grabs two cells from the top of examined cell
+                  aliveCellList.append(board[row + SUBTRACT_INDEX][col])
+                  aliveCellList.append(board[row + SUBTRACT_INDEX][col + SUBTRACT_INDEX])
+
+                  # Grabs two cells from the bottom of examined cell
+                  aliveCellList.append(board[row + ADD_INDEX][col])
+                  aliveCellList.append(board[row + ADD_INDEX][col + SUBTRACT_INDEX])
+
+             # Handles left edge corner of board
+             elif row == boardWidth + SUBTRACT_INDEX and col == EVEN_INDEX:
+                
+                  # Grabs cell from the right of examined cell
+                  aliveCellList.append(board[row][col + ADD_INDEX])
+
+                  # Grabs two cells above examined cell
+                  aliveCellList.append(board[row + SUBTRACT_INDEX][col])
+                  aliveCellList.append(board[row + SUBTRACT_INDEX][col + ADD_INDEX])
+
+             # Handles bottom edge of board
+             elif row == boardWidth + SUBTRACT_INDEX and col > EVEN_INDEX and row == boardWidth + SUBTRACT_INDEX and col < boardLength + SUBTRACT_INDEX:
+              
+                 # Grabs cells from the left and right of examined cell
+                 aliveCellList.append(board[row][col + SUBTRACT_INDEX])
+                 aliveCellList.append(board[row][col + ADD_INDEX])
+
+                 # Grabs three cells above examined cell
+                 aliveCellList.append(board[row + SUBTRACT_INDEX][col + SUBTRACT_INDEX])
+                 aliveCellList.append(board[row + SUBTRACT_INDEX][col])
+                 aliveCellList.append(board[row + SUBTRACT_INDEX][col + ADD_INDEX])
+
+             # Handles bottom right corner of board
+             elif row == boardLength + SUBTRACT_INDEX and col == boardLength + SUBTRACT_INDEX:
+              
+                  # Grabs cell from the left of examined cell
+                  aliveCellList.append(board[row][col + SUBTRACT_INDEX])
+
+                  # Grabs two cells on top of examined cell
+                  aliveCellList.append(board[row + SUBTRACT_INDEX][col])
+                  aliveCellList.append(board[row + SUBTRACT_INDEX][col + SUBTRACT_INDEX])
+
+            # print(aliveCellList, "Outcome: ",cellSurvival, " at row/col: ", row, " ", col)
+             
+             examinedCell = board[row][col]
+
+             # Calls cell survival to determine if examined lives or dies
+             cellSurvival = aliveCellCounter(examinedCell,aliveCellList)
+
+             # Stores alive cell coordinates into 1D newCellList
+             if cellSurvival == ALIVE_CELL:
+                 newCellList.append(row)
+                 newCellList.append(col)
+
+             col += INCREMENT
+
+             # Resets list for next iteration 
+             aliveCellList = []
+
+        row += INCREMENT
+
+
+    return newCellList
+
+#######################################################################################
+# makeCellBoard(): This function is primarily used to call all cell creation
+#                  related functions and keeps track of the amount of iterations 
+#                  for each newly created board
+# Input:           rowInput; an integer that user provided
+#                  columnInput; an integer that user provided
+#                  cellList; a 1D list that contains coordinate points for alive cells
+#                  iteration; an integer that user provided 
+# Output:          None; Used only as a cohesive driver
+
+def makeCellBoard(rowInput, columnInput, cellList, iteration):
+    
+    count = INCREMENT
+    print("Starting Board: ",end="\n\n")
+
+    # Calls populateCellBoard to set up starting board
+    board = populateCellBoard(rowInput, columnInput, cellList)
+    printBoard(board)
+
+    # Calls nextIteration function to get next set of alive cells list
+    while count <= iteration:
+         print("Iteration "+str(count)+":",end="\n\n")
+         newCellList = nextIteration(board)
+         board = populateCellBoard(rowInput, columnInput, newCellList)
+         printBoard(board)
+         count += INCREMENT
+
+###################################################################################
+# cellInitiation(): Gathers up all coordinates in which the user wants 
+#                   specifc cells to be alive prior to creating board
+# Input:            rowRange; an integer that represents the max width of board 
+#                   colRange; an integer that represents that max length of board
+# Output:           cellList; a 1D list that contains coordinate points for 
+#                   alive cells           
+
+def cellInitiation(rowRange, colRange):
+
+    validCells = False
+    validRow = False
+    validCol = False
+    cellList = []
+
+    while validCells != True:
+        
+        while validRow != True:
+            rowCell = input("Please enter the row of a cell to turn on (or q to exit): ")
+        
+            # Checks to see if row cell is not equal to quit before validating row cell input
+            if rowCell != QUIT:
+               rowCell = int(rowCell)
+               result =  inputValidator(rowCell, rowRange, TURNING_ON_CELL)
+               
+               # If row cell input is valid, the valus is stored in rowList
+               if result == True:
+                  cellList.append(rowCell)
+                  validRow = True
+            else:
+                # Exits out of validRow and validCells while loops if user enters in QUIT value
+                validRow = True
+                validCells = True
+
+        # Loops through until valid column is given and only enters in loop if row cell is not equal to QUIT value
+        while validCol != True and rowCell != QUIT:
+            colCell = input("Please enter the column for that cell: ")
+
+            # Checks to see of column cell is not equal to quit before validating column cell input
+            if colCell != QUIT:
+               colCell = int(colCell)
+               result = inputValidator(colCell, colRange, TURNING_ON_CELL)
+               
+               # If column input is valid, the value is stored in colList
+               if result == True:
+                  cellList.append(colCell)
+                  validCol = True
+
+        # Resets boolean flag to default value prior to next iteration
+        validRow = False
+        validCol = False
+        
+    return cellList
+        
+def main():
+
+    validInput = False
+    
+    # Continues to loop through until both row and column inputs are valid 
+    while validInput != True:
+
+        rowInput = int(input("Please enter the number of rows: "))
+
+        # Calls inputValidator to see if input is valid
+        result = inputValidator(rowInput, LOWER_BOUND, CREATING_BOARD)
+        
+        # Checks to see if row input is valid before asking user for column input
+        if result == True:
+            while validInput != True:
+
+                columnInput = int(input("Please enter the number of columns: "))
+                result = inputValidator(columnInput, LOWER_BOUND, CREATING_BOARD)
+            
+                # Checks to see if column input is valid before exiting while loop
+                if result == True:
+                    validInput = True
+
+    # Calls cellInitiation function to gather list of specified cells to turn on
+    aliveCells =  cellInitiation(rowInput, columnInput)
+
+    validInput = False
+
+    while validInput != True:
+
+        iterationInput = int(input("How many iterations should I run? "))
+        result = inputValidator(iterationInput, LOWER_BOUND, ITERATION)
+        
+        # Checks to see if iteration input is valid before exiting while loop
+        if result == True:
+            validInput = True
+
+    # Calls makeCellBoard function to generate starting board
+    makeCellBoard(rowInput, columnInput, aliveCells, iterationInput)
+
+main()
+

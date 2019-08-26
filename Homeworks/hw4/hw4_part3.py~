@@ -1,0 +1,42 @@
+# File: hw4_part3.py
+# Author: Dane Magbuhos
+# Date: 10/1/17
+# Section: 20
+# E-mail: mag4@umbc.edu
+# Description: This program allows user to enter a list of names
+#              of the students enrolled in a course.
+
+QUIT = "QUIT" # Allows user to decide when they are done adding names to list
+PERFECTLY_ENROLLED = 8 # Number of students deemed perfectly enrolled 
+
+def main():
+
+    studentList = []
+    studentInput = " "
+    
+    # Allows user to input as many names as possible
+    while studentInput != QUIT:
+        studentInput = input("Please enter a student name ('QUIT' to stop): ")
+
+        # Prevents the word QUIT from being added to list
+        if studentInput != QUIT:
+           studentList.append(studentInput)
+        
+    # Grabs total amount of names from list
+    amountOfStudents = len(studentList)
+    
+    # Outputs appropriate response based on amountOfStudents
+    if amountOfStudents < PERFECTLY_ENROLLED:
+        print("There are ",amountOfStudents," students in the course.")
+        print("The course is under enrolled!")
+
+    elif amountOfStudents == PERFECTLY_ENROLLED:
+        print("There are ",amountOfStudents," students in the course.")
+        print("The course is perfectly enrolled!")
+    
+    else:
+        print("There are ",amountOfStudents," students in the course.")
+        print("The course is over enrolled!")
+        
+
+main()

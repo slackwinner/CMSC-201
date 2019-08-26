@@ -1,0 +1,56 @@
+# File: hw6_part2.py
+# Author: Dane Magbuhos
+# Date: 11/14/17
+# Section: 20
+# E-mail: mag4@umbc.edu
+# Description: This program draws a right triangle, recursively, based on 
+#              the height and symbol the user provides.
+
+# Represents the starting row value
+S_ROW = 1
+
+# Represents the starting width value
+S_WIDTH = 0
+
+# Used to increase numbers by given value 
+INCREMENT = 1
+
+###############################################################################
+# recurTri() Outputs the right triangle symbol based on the 
+#            user's inputs
+# Input:     rowCounter; an integer that keeps track of the row level
+#            widthCounter; an integer that tracks the length of the row level
+#            height; an integer that represents how tall the right triangle is
+#            symbol; a string that represents the character being used at each
+#            row level
+# Output:    None; Only serves as a print function and the return statements 
+#            represents the recursive action
+
+def recurTri(rowCounter, widthCounter, height, symbol):
+
+    # Prepares next row prior to outputting another set of designated symbol
+    if widthCounter == rowCounter:
+        rowCounter += INCREMENT
+        widthCounter = S_WIDTH
+        print()
+        return recurTri(rowCounter, widthCounter, height, symbol)
+
+    # Outputs appropriate amount of designated symbol per row   
+    elif rowCounter <= height:
+        print(symbol, end="")
+        widthCounter += INCREMENT
+        return recurTri(rowCounter, widthCounter, height, symbol)
+        
+def main():
+
+    height = int(input("Please enter the height of the triangle: "))
+    symbol = input("Please enter the symbol to use: ")
+
+    rowCounter = S_ROW
+    widthCounter = S_WIDTH
+
+    # Calls the recurTri
+    recurTri(rowCounter , widthCounter, height, symbol)
+
+
+main() 

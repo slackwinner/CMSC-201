@@ -1,0 +1,42 @@
+# File: food.py
+# Author: Dane Magbuhos
+# Date: 9/20/17
+# Section: 20
+# E-mail: mag4@umbc.edu
+# Description: Asks the user what they had for breakfast and outputs excellent 
+#              choice when they enter a specific input.
+
+def main():
+    i = 0
+    while i < 5:
+        i += 1
+    print(i)
+
+    a = 5
+    b = 0
+    c = 2
+    while(a >= b):
+         a+=1
+         b+=1
+         c*=2
+    print(c)
+
+
+
+
+#    foodInput = input("Please enter what you ate for breakfast: ")
+ #   if foodInput == "green eggs" or foodInput == "ham":
+  #     print("Excellent choice!")
+   # else:
+    #    print(foodInput," is a strange choice for breakfast")
+
+
+
+
+
+
+
+
+
+
+main()

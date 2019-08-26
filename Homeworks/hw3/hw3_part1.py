@@ -1,0 +1,32 @@
+# File: hw3_part1.py
+# Author: Dane Magbuhos
+# Date: 9/24/17
+# Section: 20
+# E-mail: mag4@umbc.edu
+# Description: This program simulates the up and down
+#              movement of a hailstone in a storm.
+
+def main():
+
+    # Grabs user input of starting height of the hailstone    
+    startingHeight = int(input("Please enter the starting height of the hailstone: "))    
+
+    # Loops through and outputs current heights until height is equal to o or 1
+    while startingHeight > 0 and startingHeight != 1:
+          print("Hail is currently at height ",int(startingHeight))
+          #Calculates remainder of each startingHeight 
+          modHeight = startingHeight % 2
+
+          # If modHeight is 0 (i.e. startingHeight is even), divides by 2  
+          if modHeight == 0:
+             startingHeight =  startingHeight/2
+
+          # If modHeight is 1 (i.e. startingHeight is odd), multiplies by 3 then adds 1
+          elif modHeight == 1:
+               startingHeight = startingHeight * 3
+               startingHeight = startingHeight + 1
+ 
+    # Outputs final height of hailstone
+    print("Hail stopped at height ",int(startingHeight))
+                
+main()

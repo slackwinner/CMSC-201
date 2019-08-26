@@ -1,0 +1,73 @@
+# File: hw4_part5.py
+# Author: Dane Magbuhos
+# Date: 10/1/17
+# Section: 20
+# E-mail: mag4@umbc.edu
+# Description: This program asks the user to enter a PIN number
+#              validates the PIN input before approving it as 
+#              secure and repeating final selection to user
+
+# Maximum PIN number length of checking(C), debit(D), and savings (S) 
+MAX_LEN_C_D = 4
+MAX_LEN_S = 3
+ZERO_CHECKER = "0"
+FIRST_INDEX = 0
+PIN_STATEMENT = "The PIN "
+
+def main():
+
+    pinInput = input("Please enter a PIN: ")
+    accountInput = input("Please enter account type (c,d, or s): ")
+
+    pinLength = len(pinInput)
+    firstCharIndex = pinInput[FIRST_INDEX]
+    lastCharIndex = pinInput[pinLength - 1]
+
+    tempChar = " "
+    pinValid = True
+
+    while not pinValid:
+        if accountInput == "c" or accountInput == "d":
+            if pinLength < MAX_LEN_C_D:
+                print(PIN_STATEMENT,pinInput," is too short for a ",accountInput," account")
+    
+            elif pinLength > MAX_LEN_C_D:
+                print (PIN_STATEMENT,pinInput," is too long for a ",accountInput," account")
+            
+            if firstCharIndex == ZERO_CHECKER:
+              print(PIN_STATEMENT,pinInput," begins with a zero")
+              
+            elif lastCharIndex == ZERO_CHECKER:
+                print(PIN_STATEMENT,pinInput," ends with a zero")
+
+        elif accountInput == "s":
+            if pinLength < MAX_LEN_S:
+                print(PIN_STATEMENT,pinInput," is too short for a ",accountInput," account")
+
+            elif pinLength > MAX_LEN_S:
+                print(PIN_STATEMENT,pinInput," is too long for a ",accountInput," account")
+                
+            if firstCharIndex == ZERO_CHECKER:
+                print(PIN_STATEMENT,pinInput," begins with a zero")
+
+            elif secondCharIndex == ZERO_CHECKER:
+                print(PIN_STATEMENT,pinInput," ends with a zero")
+
+            while pinInput[index] < pinLength:
+                tempChar = pinInput[index]
+                index += 1
+                if tempChar == pinInput[index + 1]:
+                    repeatCounter += 1
+                if repeatCounter == MAX_LEN_S:
+                    print(PIN_STATEMENT,pinInput," has three numbers repeated")
+                
+
+
+
+
+
+
+
+
+
+main()

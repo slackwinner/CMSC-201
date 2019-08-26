@@ -1,0 +1,37 @@
+# File: hw4_part6.py
+# Author: Dane Magbuhos
+# Date: 10/3/17
+# Section: 20
+# E-mail: mag4@umbc.edu
+# Description: This program allows the user to create a tasks list
+#              outputs the list of tasks and the amount of hours
+#              they have to complete each task.
+
+END = "END" #Allows the user to stop adding items 
+
+def main():
+    
+    taskList = []
+    hourList = []
+
+    taskItem = " "
+    index = 0
+
+    # Grabs user`s task and hour input and stores them inside appropriate list
+    while taskItem != str(END):
+        taskItem = input("Please enter a task, or " + str(END) + " to stop: ")
+        
+        # Prevents "END" from being added to task item list
+        if taskItem != str(END):
+           taskList.append(taskItem)
+           hourItem = input("Please enter the hour(s) needed to complete it: ")
+           hourList.append(hourItem)
+
+    print("Here is your task list: ", end="\n\n")
+
+    # Iterates through both lists and outputs each task and hour item
+    while index < len(taskList) and index < len(hourList):
+        print(hourList[index]," hours to complete: ",taskList[index])
+        index += 1
+
+main()

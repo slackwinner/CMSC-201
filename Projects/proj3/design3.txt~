@@ -1,0 +1,42 @@
+# File: design3.txt
+# Author: Dane Magbuhos
+# Date: 11/27/17
+# Section: 20
+# E-mail: mag4@umbc.edu
+# Description: This program reads in specified maze chosen by the user
+#              and attempts to find the solution to a specified 
+#              coordinate point.
+
+# Specifies the four walls and open/closed walls for a square
+RIGHT = 0
+BOTTOM = 1
+LEFT = 2
+TOP = 3
+OPEN_W = "0"
+CLOSED_W = "1"
+
+# Used to modify indexes, counters, and boundary ranges
+DECREMENT = 1
+INCREMENT = 1
+INDEX_INCREMENT = 2
+INDEX_DECREMENT = 2
+FIRST_INDEX = 0
+BAD_PATH_ONE = "B"
+BAD_PATH_TWO = "P"
+
+# Items used when validating input
+TYPE_ONE = "row"
+TYPE_TWO = "column"
+LOWER_BOUND = 0
+
+# Used to denote maze package's indexes
+ROW = 0
+COLUMN = 1
+TARGET_ROW = 2
+TARGET_COLUMN = 3
+MAZE_MAP = 4
+
+# Used to denote x and y coordiante indexes
+X_COOR = 0
+Y_COOR = 1
+

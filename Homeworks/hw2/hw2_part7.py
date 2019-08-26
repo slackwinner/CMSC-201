@@ -1,0 +1,25 @@
+# File: hw2_part7.py
+# Author: Dane Magbuhos
+# Date: 09/17/17
+# Section: 20
+# E-mail: mag4@umbc.edu
+# Description: This program asks the user about the state of 
+#             two switches, and then use this information to
+#             determine the state of the generator.
+
+def main():
+#   Asks user if switch one and two is on
+    print("Please enter 'y' for yes and 'n' for no. ")
+    switchInputOne = input("Is the first switch on? ")
+    switchInputTwo = input("Is the second switch on? ")
+
+#   Evaluates the switch inputs based on user`s response
+    if switchInputOne == "y" and switchInputTwo == "n" or switchInputOne == "n" and switchInputTwo == "y":
+       print("The generator is on")
+    else:
+        print("The generator is off")
+
+#   Outputs blank statement for spacing purposes in output
+    print()
+
+main()

@@ -1,0 +1,31 @@
+# File: languages.py
+# Author: Dane Magbuhos
+# Date: 10/4/17
+# Section: 20
+# E-mail: mag4@umbc.edu
+# Description: This program allows the user to vote whch one they prefer.
+
+def main():
+
+    languages = ["Python", "Java", "C++", "Ruby", "C", "PHP", "Shakespeare"]
+    voteList = [0, 0, 0, 0, 0, 0, 0]
+    index = 0
+    voteInput = -1
+    count = 1
+
+    while index < len(languages):
+        print(count," - ",languages[index])
+        count += 1
+        index += 1
+
+    while voteInput != 0:
+        voteInput = int(input("What language do you like? (Enter 0 to stop): "))
+        if voteInput != 0:
+           voteList[voteInput] += 1 
+
+    index = 1
+    while index < len(voteList):
+         print (languages[index]," has ",voteList[index])
+         index += 1
+        
+main()

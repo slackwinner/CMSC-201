@@ -1,0 +1,27 @@
+# File: hw3_part4.py
+# Author: Dane Magbuhos
+# Date: 9/24/17
+# Section: 20
+# E-mail: mag4@umbc.edu
+# Description: This program calculates how much money will be
+#              raised during a charity run.
+
+def main():
+
+    amountOfPledges = int(input("How many pledges did you secure? "))
+    counter = 0
+    pledgeCounter = 1
+    totalAmount = 0
+
+    while counter < amountOfPledges:
+          print("For pledge # ",pledgeCounter)
+          moneyPledged = float(input("How much money was pledged? "))
+          totalAmount = totalAmount + moneyPledged
+          pledgeCounter += 1
+          counter += 1 
+    
+    miles = float(input("How many miles did you run for charity? "))
+    totalAmount = miles * totalAmount
+    print("Based on you ",miles,"miles you earned $",totalAmount,"for the charity")
+
+main()

@@ -1,0 +1,72 @@
+# File: hw5_part2.py
+# Author: Dane Magbuhos
+# Date: 10/8/17
+# Section: 20
+# E-mail: mag4@umbc.edu
+# Description: This program searches through a phrase 
+#              looking for occurrences of a word.
+
+
+FINAL_INDEX = 1 # Used to format index
+INCREMENT_INDEX = 1 # Used to increment index by specified number 
+INCREMENT_COUNT = 1 # Used to increment any counter by specified number
+
+######################################################
+#inPhrase() counts the instances of a word in a string
+#Input: phrase; a string of the phrase to search in
+#       wordSearch; a single word to search for
+#Output: None
+
+def inPhrase(phrase, wordSearch):
+
+    index = 0
+    charIndex = 0
+    wordCount = 0
+    charCount = 0
+    lowerWord = wordSearch.lower()
+    indexIndicator = len(wordSearch) - FINAL_INDEX
+
+    # Traverses through each character within phrase
+    while index < len(phrase):
+         # Checks if character of phrase is equal to character of word search
+         if phrase[index].lower() == lowerWord[charIndex]:
+            charCount += INCREMENT_COUNT 
+            charIndex += INCREMENT_INDEX
+            # Checks to see if count is equal to length of word search before resetting variables
+            # and outputs where index of word search was found
+            if charCount == len(wordSearch):
+                wordCount += INCREMENT_COUNT
+                charIndex = 0
+                charCount = 0
+                indexFound = index - indexIndicator 
+                print("Found ",wordSearch," at index ",indexFound)
+        
+         index += INCREMENT_INDEX
+            
+    # Outputs total amount of word search occurences within phrase
+    print("Found ",wordSearch," a total of ",wordCount," times",end="\n\n")
+
+
+def main():
+
+    validInput = False
+    # Grabs user`s phrase and word search input
+    phraseInput = input("Enter a phrase: ")
+    wordSearch = input("Enter a word to search for: ")
+
+    while validInput == False:
+
+        phraseLength = len(phraseInput)
+        wordLength = len(wordSearch)
+
+        # Prompts user to enter another valid word search input
+        if wordLength > phraseLength:
+            print("The word can`t be longer than the phrase.")
+            wordSearch = input("Enter a shorter word to search for: ")
+ 
+        # If word length is less than phrase length, calls inPhrase function
+        if wordLength < phraseLength:
+            inPhrase(phraseInput, wordSearch)
+            validInput = True
+        
+main()

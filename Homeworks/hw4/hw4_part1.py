@@ -1,0 +1,26 @@
+# File: hw4_part1.py
+# Author: Dane Magbuhos
+# Date: 10/01/17
+# Section: 20
+# E-mail: mag4@umbc.edu
+# Description: This program creates a modulus table based
+#              upon the user`s input.
+
+
+def main():
+    
+    # Grabs user`s input prior to creating modulus table
+    modInput = int(input("Please enter the number to mod by: "))
+    maxAmount = int(input("Please enter how high you`d like to go: "))
+    counter = 0
+
+    # Performs mod division from 0 to maxAmount and outputs results 
+    while counter <= maxAmount:
+        modAnswer = counter % modInput
+        print(counter," % ",modInput," = ",modAnswer)
+        counter+=1
+    
+    # Outputs blank statement for spacing purposes during execution of program
+    print(" ")
+
+main()

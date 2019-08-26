@@ -1,0 +1,44 @@
+# File: hw5_part1.py
+# Author: Dane Magbuhos
+# Date: 10/8/17
+# Section: 20
+# E-mail: mag4@umbc.edu
+# Description: This program asks the user for a string and letter
+#              and counts how many times that letter appears
+#              in the string.
+
+INCREMENT_INDEX = 1 # Used to increase index by specified number
+INCREMENT_COUNTER = 1 # Used to increase counter by specified number
+
+###########################################################
+# numLetter() counts the instances of a letter in a string
+# Input: aString; a string of the phrase to search in
+#        letter; a single character to search for
+# Output: None
+def numLetter(aString, letter):
+    index = 0
+    counter = 0
+    aStringLength = len(aString)
+    lowerCase = letter.lower()
+    upperCase = letter.upper()
+
+    # Traverses through string and counts how many specified letter exists
+    while(index < aStringLength):
+        if aString[index] == lowerCase or aString[index] == upperCase:
+            counter += INCREMENT_COUNTER
+        index += INCREMENT_INDEX
+    
+    # Outputs total amount of specified letters from the string input
+    print("There are ",counter," instances of ",letter,"in the string", end="\n\n")
+
+def main():
+
+    # Grabs string and letter input from user
+    aString = input("Enter a string: ")
+    letter = input("Enter a letter to search for: ")
+
+    # Calls numLetter function
+    numLetter(aString, letter)
+
+
+main()

@@ -1,0 +1,13 @@
+def printWord(myWord, index):
+    if index == len(myWord):
+        return None
+    else:
+        print(myWord[index], end = "")
+        printWord(myWord, index + 1)
+#        print(myWord[index], end = "")
+
+def main():
+    myWord = "cat"
+    printWord(myWord, 0)
+
+main()

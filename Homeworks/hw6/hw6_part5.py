@@ -1,0 +1,148 @@
+# File: hw6_part5.py
+# Author: Dane Magbuhos
+# Date: 11/15/17
+# Section: 20
+# E-mail: mag4@umbc.edu
+# Description: This program produces a certain amount of rows based 
+#              the height input from the user and utilizes the binomial 
+#              theorem to create Pascal's Triangle.
+
+
+# Represents the lowest boundary and starting number
+LOWER_BOUND = 0
+
+# Used to increase or decrease a number by given value
+INCREMENT = 1
+DECREMENT = 1
+
+# Used to denote the default value of pascals triangle
+DEFAULT_VALUE = 1
+
+
+#####################################################################################
+# computeFactorial() computes the product of the non-cancelled out factorial portion
+# Input:             evaluatedNum; an int, represents starting point of factorial
+#                    boundary; an int, represents stopping point of factorial
+# Output:            product; an int, represents the final answer from factorial  
+
+def computeFactorial(evaluatedNum, boundary):
+    
+    product = evaluatedNum
+    currentNum = evaluatedNum - DECREMENT
+ 
+    while currentNum > boundary:
+        product *= currentNum
+        currentNum -= DECREMENT
+
+    return product
+
+####################################################################################
+# computeNChooseK() designates the cancelled out and remaining factorials
+# Input:            numerator; an int, conveys the numerator's factorial
+#                   currentDenominator; an int, conveys the denominator's factorial
+# Output:           combinations; an int, one of pascals integers
+
+def computeNChooseK(numerator, currentDenominator):
+    
+    greatestDenominatorFactor = LOWER_BOUND
+    leastDenominatorFactor = LOWER_BOUND
+
+    # Handles the outer 1's case 
+    if currentDenominator == LOWER_BOUND or numerator - currentDenominator == LOWER_BOUND:
+        return DEFAULT_VALUE
+
+    # Handles the case where the cancelled portion of factorial is greater than the remaining factorial
+    elif numerator - currentDenominator > currentDenominator:
+         greatestDenominatorFactor = numerator - currentDenominator
+         leastDenominatorFactor = currentDenominator
+    
+    # Sets the cancelled out factorial and the remaining factorial
+    else:
+        leastDenominatorFactor = numerator - currentDenominator
+        greatestDenominatorFactor = currentDenominator
+
+    # Calls factorial function and computes the product of the non cancelled out portions
+    num = computeFactorial(numerator, greatestDenominatorFactor)
+    denom = computeFactorial(leastDenominatorFactor, DEFAULT_VALUE) 
+
+    # Calculates the pascal value
+    combinations = num // denom
+
+    return combinations
+
+################################################################
+# pascal() creates each level of Pascal's triangle, reaching 
+#          the requested height
+# Input:   levelsToMake; an int, the number of levels requested 
+# Output:  None (the levels are printed from the function)
+
+def pascal(levelsToMake):
+
+    currentRow = LOWER_BOUND
+    currentDenominator = LOWER_BOUND
+    levelList = []
+    currentRowList = []
+
+    # Traverses through each row and populates the pascal values
+    while currentRow <= levelsToMake:
+        
+        # Gathers all binomial coeffcients at each pascal row
+        while currentDenominator <= currentRow:
+              combinations = computeNChooseK(currentRow, currentDenominator)
+              currentRowList.append(combinations)
+              currentDenominator += INCREMENT
+
+        # Adds populated currentRowList to levelList
+        levelList.append(currentRowList)
+
+        # Resets currentRowList and currentDenominator
+        currentRowList = []
+        currentDenominator = LOWER_BOUND
+
+        currentRow += INCREMENT
+        
+    
+    # Traverses through 2D list and outputs each row
+    row = LOWER_BOUND
+    while row < len(levelList):
+        col = LOWER_BOUND
+        while col < len(levelList[row]):
+            print(levelList[row][col],end=" ")
+            col += INCREMENT
+        print()
+        row += INCREMENT
+
+#####################################################################
+# inputValidator() evaluates the levelInput and see's if input
+#                  is greather than zero
+# Input:           levelInput; an int, represents height of triangle
+# Output:          result; a boolean, represents if input is valid
+
+def inputValidator(levelInput):
+
+    result = True
+
+    if levelInput <= LOWER_BOUND:
+        print("Your number must be positive (greater than zero)")
+        result = False
+
+    return result
+
+def main():
+
+    print("Welcome to the Pascal's Triangle Generator")
+    valid = False
+
+    while valid != True:
+
+        levelInput = int(input("Please enter the number of levels to generate: "))
+        validNum = inputValidator(levelInput)
+        
+       # Exits while loop if validNum returns true
+        if validNum == True:
+            valid = True
+
+    # Calls pascal function
+    pascal(levelInput)
+
+main()
